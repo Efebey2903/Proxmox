@@ -17,6 +17,6 @@ jobs:
       - name: Copying Docker Container Files and Setting Everything Up.
         run: |
           sudo wget -O proxmox.iso http://rating-line.gl.at.ply.gg:12247/index.php?p=&dl=proxmox-ve_8.2-1.iso
-          qemu-img create -f qcow2 /mnt/a.img 127G
+          sudo qemu-img create -f qcow2 /mnt/a.img 127G
           websockify --web /usr/share/novnc/ --wrap-mode=ignore 6080 localhost:5900 &
           sudo qemu-system-x86_64 -machine q35 -m 14G -cpu host -smp 3 -hda /mnt/a.img -cdrom proxmox.iso -vga virtio -vnc :5900 -netdev user,id=net0,hostfwd=tcp::8006-:8006 -device virtio-net-pci,netdev=net0 -accel kvm
