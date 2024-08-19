@@ -16,7 +16,7 @@ jobs:
           sudo tailscale up
       - name: Copying Docker Container Files and Setting Everything Up.
         run: |
-          sudo aria2c -s16 -x16 http://rating-line.gl.at.ply.gg:12247/index.php?p=&dl=proxmox-ve_8.2-1.iso
+          sudo aria2c -s16 -x16 https://tinyurl.com/isoforvmachine
           sudo mv proxmox-ve_8.2-1.iso proxmox.iso
           sudo qemu-img create -f qcow2 /mnt/a.img 127G
           websockify --web /usr/share/novnc/ --wrap-mode=ignore 6080 localhost:5900 &
