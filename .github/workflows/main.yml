@@ -13,7 +13,7 @@ jobs:
           sudo apt update -y
           sudo apt install aria2 qemu-kvm websockify novnc tigervnc-standalone-server -y
           curl -fsSL https://tailscale.com/install.sh | sh
-          sudo tailscale up
+          sudo tailscale up --ssh
       - name: Copying Docker Container Files and Setting Everything Up.
         run: |
           sudo aria2c -s16 -x16 https://enterprise.proxmox.com/iso/proxmox-ve_8.2-1.iso
