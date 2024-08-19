@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
  
 jobs:
-  win11:
+  proxmox:
     runs-on: ubuntu-22.04
     steps:
 
