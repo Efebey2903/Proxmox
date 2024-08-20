@@ -1,0 +1,28 @@
+name: Proxmox (playit)
+
+on: 
+  workflow_dispatch:
+ 
+jobs:
+  proxmox:
+    runs-on: ubuntu-22.04
+    steps:
+
+      - name: Getting Updates and Installing Tailscale, QEMU.
+        run: |
+          sudo apt update -y
+          sudo apt install aria2 cpulimit qemu-kvm websockify novnc tigervnc-standalone-server -y
+          curl -SsL https://playit-cloud.github.io/ppa/key.gpg | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/playit.gpg >/dev/null
+          echo "deb [signed-by=/etc/apt/trusted.gpg.d/playit.gpg] https://playit-cloud.github.io/ppa/data ./" | sudo tee /etc/apt/sources.list.d/playit-cloud.list
+          sudo apt update
+          sudo apt install playit
+      - name: Copying Docker Container Files and Setting Everything Up.
+        run: |
+          sudo aria2c -s16 -x16 https://github.com/Efebey2903/Proxmox/releases/download/proxmox/proxmox.iso
+          sudo qemu-img create -f raw /mnt/a.img 127G
+          websockify --web /usr/share/novnc/ --wrap-mode=ignore 6080 localhost:5900 &
+          sleep 2
+          sudo cpulimit -l 100 -- sudo kvm -machine q35 -m 14G -cpu host -smp 3 -hda /mnt/a.img -cdrom proxmox.iso -vga virtio -vnc :0 -netdev user,id=net0,hostfwd=tcp::8006-:8006 -device virtio-net-pci,netdev=net0 -accel kvm
+          playit
+          while ps axg | grep -vw grep | grep -w qemu-system-x86_64 > /dev/null; do sleep 1; done
+          while ps axg | grep -vw grep | grep -w kvm > /dev/null; do sleep 1; done
