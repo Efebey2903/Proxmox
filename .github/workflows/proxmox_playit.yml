@@ -7,7 +7,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: setting up
+      - name: Downloading and Installing Essentials.
         run: |
           sudo apt update -y
           sudo apt install qemu-kvm cpulimit wget -y
@@ -15,7 +15,7 @@ jobs:
           echo "deb [signed-by=/etc/apt/trusted.gpg.d/playit.gpg] https://playit-cloud.github.io/ppa/data ./" | sudo tee /etc/apt/sources.list.d/playit-cloud.list
           sudo apt update
           sudo apt install playit
-      - name: cài win và khởi chạy
+      - name: Starting up Proxmox..
         run: |
           sudo chmod 666 /dev/kvm
           sudo qemu-img create -f qcow2 /mnt/a.qcow2 120G
