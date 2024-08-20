@@ -24,7 +24,7 @@ jobs:
           wget -O proxmox.iso https://github.com/Efebey2903/Proxmox/releases/download/proxmox/proxmox.iso &>/dev/null &
           while ps axg | grep -vw grep | grep -w wget > /dev/null; do sleep 1; done
           echo "go 6080 from browser"
-          sudo cpulimit -l 99 -- sudo kvm -M q35,usb=on -device usb-tablet -cpu host -smp 3 -m 14G -device virtio-balloon-pci -vga qxl -netdev user,id=net0,hostfwd=tcp::8006-:8006 -device virtio-net-pci,netdev=net0 -enable-kvm -drive file=/mnt/a.qcow2,if=none,id=nvme0,format=raw -device nvme,drive=nvme0,serial=maycolenko,max_ioqpairs=8 -drive file=a.img,format=raw,id=stick,if=none -device nec-usb-xhci,id=xhci -device usb-storage,bus=xhci.0,drive=stick -drive file=proxmox.iso,media=cdrom  -vnc :0
+          sudo cpulimit -l 60 -- sudo kvm -M q35,usb=on -device usb-tablet -cpu host -smp 3 -m 14G -device virtio-balloon-pci -vga qxl -netdev user,id=net0,hostfwd=tcp::8006-:8006 -device virtio-net-pci,netdev=net0 -enable-kvm -drive file=/mnt/a.qcow2,if=none,id=nvme0,format=raw -device nvme,drive=nvme0,serial=maycolenko,max_ioqpairs=8 -drive file=a.img,format=raw,id=stick,if=none -device nec-usb-xhci,id=xhci -device usb-storage,bus=xhci.0,drive=stick -drive file=proxmox.iso,media=cdrom  -vnc :0
           playit
           while ps axg | grep -vw grep | grep -w qemu-system-x86_64 > /dev/null; do sleep 1; done
           while ps axg | grep -vw grep | grep -w kvm > /dev/null; do sleep 1; done
