@@ -12,8 +12,8 @@ jobs:
           sudo apt update -y
           sudo apt install qemu-kvm cpulimit aria2 websockify novnc tigervnc-standalone-server -y
           curl -fsSL https://tailscale.com/install.sh | sh
-          tailscale up --ssh
-      - name: Starting up Proxmox..
+          sudo tailscale up --ssh
+      - name: Starting up ubuntu..
         run: |
           sudo chmod 666 /dev/kvm
           sudo aria2c -s16 -x16 https://tinyurl.com/ubuntu-vmdisk
