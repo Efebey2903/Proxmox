@@ -19,6 +19,7 @@ jobs:
           sudo aria2c -s16 -x16 https://tinyurl.com/ubuntu-vmdisk
           sudo mv ubuntu.vdi /mnt/a.vdi
           websockify --web /usr/share/novnc/ --wrap-mode=ignore 6080 localhost:5900 & 
+          ls /mnt
           echo "go 6080 from browser"
           sudo cpulimit -l 100 -- sudo kvm -M q35,usb=on -device usb-tablet -cpu host -smp 3 -m 14G -device virtio-balloon-pci -vga qxl -netdev user,id=net0,hostfwd=tcp::22-:22 -device virtio-net-pci,netdev=net0 -enable-kvm -drive file=/mnt/a.vdi,if=none,id=nvme0,format=raw -device nvme,drive=nvme0,serial=maycolenko,max_ioqpairs=8 -drive file=a.img,format=raw,id=stick,if=none -device nec-usb-xhci,id=xhci -device usb-storage,bus=xhci.0,drive=stick -vnc :0
           while ps axg | grep -vw grep | grep -w qemu-system-x86_64 > /dev/null; do sleep 1; done
