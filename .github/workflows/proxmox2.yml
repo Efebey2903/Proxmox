@@ -21,7 +21,7 @@ jobs:
         run: |
           websockify --web /usr/share/novnc/ --wrap-mode=ignore 6080 localhost:5900 &
           sleep 2
-          wget -O docker-compose.yml https://github.com/Efebey2903/Proxmox/raw/main/a.yml
+          wget -O docker-compose.yml https://raw.githubusercontent.com/Efebey2903/Proxmox/main/a.yml
           sleep 1
           docker-compose build
           sleep 3
