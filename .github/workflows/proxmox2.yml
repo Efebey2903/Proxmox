@@ -20,7 +20,7 @@ jobs:
           sudo qemu-img create -f raw /mnt/a.img 127G
           websockify --web /usr/share/novnc/ --wrap-mode=ignore 6080 localhost:5900 &
           sleep 2
-          wget -O docker-compose.yml https://pastebin.com/raw/SSXyzyiF
+          wget -O docker-compose.yml https://github.com/Efebey2903/Proxmox/raw/main/a.yml
           wait
           docker-compose build
           sleep 3
