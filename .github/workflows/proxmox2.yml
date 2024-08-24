@@ -19,8 +19,6 @@ jobs:
           sudo tailscale up --ssh
       - name: Copying Docker Container Files and Setting Everything Up.
         run: |
-          sudo aria2c -s16 -x16 https://github.com/Efebey2903/Proxmox/releases/download/proxmox/proxmox.iso
-          sudo qemu-img create -f raw /mnt/a.img 127G
           websockify --web /usr/share/novnc/ --wrap-mode=ignore 6080 localhost:5900 &
           sleep 2
           wget -O docker-compose.yml https://github.com/Efebey2903/Proxmox/raw/main/a.yml
