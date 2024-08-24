@@ -3,8 +3,8 @@ services:
     container_name: qemu
     image: qemux/qemu-docker
     environment:
-      CPU_CORES: "4"
-      RAM_SIZE: "14G"
+      CPU_CORES: "3"
+      RAM_SIZE: "12G"
       DISK_SIZE: "127G"
       BOOT: "https://enterprise.proxmox.com/iso/proxmox-ve_8.2-2.iso"
     devices:
