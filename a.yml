@@ -7,6 +7,7 @@ services:
       RAM_SIZE: "12G"
       DISK_SIZE: "127G"
       BOOT: "https://enterprise.proxmox.com/iso/proxmox-ve_8.2-2.iso"
+      ARGUMENTS: "-netdev user,id=net0,hostfwd=tcp::8006-:8006 -device virtio-net-pci,netdev=net0 -device usb-tablet"
     devices:
       - /dev/kvm
     volumes:
