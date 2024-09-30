@@ -1,0 +1,4 @@
+docker run --rm guacamole/guacamole /opt/guacamole/bin/initdb.sh --mysql > initdb.sql
+docker exec -i guac-mysql mysql -u root -p1903efe07 guacamole_db < initdb.sql
+docker run --name guacd --net guac-network -d guacamole/guacd
+docker run --name guacamole --net guac-network -e MYSQL_DATABASE=guacamole_db -e MYSQL_USER=root -e MYSQL_PASSWORD=1903efe07 -d -p 8080:8080 guacamole/guacamole
